@@ -3,6 +3,8 @@
   Review [examples](+C:\Users\Franco\Downloads\ZeroBraneStudio\cfg\user-sample.lua) or check [online documentation](http://studio.zerobrane.com/documentation.html) for details.
 --]]--
 
+api = {"sprout"}
+
 local G = ...
 styles = G.loadfile('cfg/tomorrow.lua')('Molokai') -- Molokai background: {27, 29, 30}
 
