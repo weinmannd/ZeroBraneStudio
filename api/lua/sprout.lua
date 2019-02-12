@@ -442,6 +442,30 @@ local Hy = {
             args = "()",
             returns = "()"
         },
+        strOSPlatform = {
+            type = "function",
+            description = "Returns `Windows` or `macOS`, depending on which platform the application runs.",
+            args = "()",
+            returns = "(strOSPlatform)"
+        },
+        strOSVersion = {
+            type = "function",
+            description = "Returns a version string like `macOS 10.14.2",
+            args = "()",
+            returns = "(strOSVersion)"
+        },
+        nPhysicalMemorySize = {
+            type = "function",
+            description = "Returns the amount of RAM in bytes.",
+            args = "()",
+            returns = "(nPhysicalMemorySize)"
+        },
+        bRunProcess = {
+            type = "function",
+            description = "Runs an external executable, specified through `strCommandLine`. Returns `true` if executable start is successful, `false` if not (for example if not found).",
+            args = "(strCommandLine)",
+            returns = "(bSuccess)"
+        },
         Project = Project,
         Material = Material,
         Printer = Printer,
