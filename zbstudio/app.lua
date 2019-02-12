@@ -28,7 +28,7 @@ return {
   end,
   
   stringtable = {
-    editor = "ZeroBrane Studio",
+    editor = "Hyperganic Studio Editor",
     about = "About ZeroBrane Studio",
     editormessage = "ZeroBrane Studio Message",
     statuswelcome = "Welcome to ZeroBrane Studio",
