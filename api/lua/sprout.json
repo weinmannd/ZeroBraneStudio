@@ -76,6 +76,31 @@
                         "args":"()",
                         "returns":"(oDensityField)",
                         "valuetype":"Hy.DensityField"
+                    },
+                    "SetPrinter":{
+                        "type":"function",
+                        "description":"Sets the current printer.",
+                        "args":"(strPrinterModel)",
+                        "returns":"()"
+                    },
+                    "SetMaterial":{
+                        "type":"function",
+                        "description":"Sets the current material.",
+                        "args":"(strMaterial)",
+                        "returns":"()"
+                    },
+                    "SetProfile":{
+                        "type":"function",
+                        "description":"Sets the current profile.",
+                        "args":"(strProfile)",
+                        "returns":"()"
+                    },
+                    "OverrideMaterialProperty":{
+                        "type":"function",
+                        "description":"It replaces the property for all selected objects. Receives two values: the first one is the property name, and the second is either the new value, or if missing, it resets the property to its default value (as loaded from the material profile).",
+                        "args":"(strPropertyName, [strNewValue])",
+                        "returns":"()",
+                        "example":"Hy.ExecuteCommand('Project.OverrideMaterialProperty', 'supportBaseType', 'rect')"
                     }
                 }
             },
