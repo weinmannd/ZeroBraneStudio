@@ -345,6 +345,12 @@
                         "returns":"()"
                     }
                 }
+            },
+            "ExecuteCommand":{
+            	"type":"function",
+                "description":"Executes any XML command from Lua. The first argument is the command name, the upcoming arguments will be passed to the command being executed.",
+                "args":"(strCommand, [strArguments])",
+                "returns":"()"
             }
         }
     },
