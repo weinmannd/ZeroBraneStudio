@@ -12,6 +12,36 @@
                 "valuetype":"Hy.Project",
                 "description":"(Read Only) Contains an instance of the Hy.Project class, which represents the current project. Projects are shown as tabs in the user interface."
             },
+            "ExecuteCommand":{
+                "type":"function",
+                "description":"Executes any XML command from Lua. The first argument is the command name, the upcoming arguments will be passed to the command being executed.",
+                "args":"(strCommand, [strArguments])",
+                "returns":"()"
+            },
+            "strGetVariable":{
+                "type":"function",
+                "description":"Reads UI variable of type string.",
+                "args":"(strName, [strDefault = \"\"])",
+                "returns":"(strVariable)"
+            },
+            "dGetVariable":{
+                "type":"function",
+                "description":"Reads UI variable of type double.",
+                "args":"(strName, [dDefault=0.0])",
+                "returns":"(dVariable)"
+            },
+            "bGetVariable":{
+                "type":"function",
+                "description":"Reads UI variable of type boolean.",
+                "args":"(strName, [bDefault= false])",
+                "returns":"(bVariable)"
+            },
+            "SetVariable":{
+                "type":"function",
+                "description":"Sets UI variable of any type.",
+                "args":"(strName, strValue / dValue / bValue)",
+                "returns":"()"
+            },
             "DisplayProgress":{
                 "type":"function",
                 "description":"This method allows the Lua script to display progress information during long operations. The second argument should increase from 0 to 1, with 1 indicating task completion.",
@@ -38,7 +68,7 @@
             },
             "strOSVersion":{
                 "type":"function",
-                "description":"Returns a version string like `macOS 10.14.2",
+                "description":"Returns a version string like `macOS 10.14.2`",
                 "args":"()",
                 "returns":"(strOSVersion)"
             },
@@ -52,7 +82,14 @@
                 "type":"function",
                 "description":"Runs an external executable, specified through `strCommandLine`. Returns `true` if executable start is successful, `false` if not (for example if not found).",
                 "args":"(strCommandLine)",
-                "returns":"(bSuccess)"
+                "returns":"(bSuccess)",
+                "example":"Mac:\n\n    if (Hy.bRunProcess('/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal')) then\n        print('Success running Terminal')\n    else\n        print('Failed running Terminal')\n    end\n\nWindows:\n\n    if (Hy.bRunProcess('Notepad.exe')) then\n        print('Success running Notepad')\n    else\n        print('Failed running Notepad')\n    end"
+            },
+            "Log":{
+                "type":"function",
+                "description":"Outputs info to the application log file. Identify the context in `strModule`.",
+                "args":"(strModule, strComment)",
+                "returns":""
             },
             "Project":{
                 "type":"class",
@@ -77,6 +114,24 @@
                         "returns":"(oDensityField)",
                         "valuetype":"Hy.DensityField"
                     },
+                    "SetProperty":{
+                        "type":"function",
+                        "description":"Sets a custom property to the current project.",
+                        "args":"(strKey, strValue / dValue)",
+                        "returns":"()"
+                    },
+                    "strGetProperty":{
+                        "type":"function",
+                        "description":"Reads a property from the project.",
+                        "args":"(strKey, [strDefault = \"\"])",
+                        "returns":"(strProperty)"
+                    },
+                    "dGetProperty":{
+                        "type":"function",
+                        "description":"Reads a property from the project.",
+                        "args":"(strKey, [dDefault = 0])",
+                        "returns":"(dProperty)"
+                    },
                     "SetPrinter":{
                         "type":"function",
                         "description":"Sets the current printer.",
@@ -100,7 +155,7 @@
                         "description":"It replaces the property for all selected objects. Receives two values: the first one is the property name, and the second is either the new value, or if missing, it resets the property to its default value (as loaded from the material profile).",
                         "args":"(strPropertyName, [strNewValue])",
                         "returns":"()",
-                        "example":"Hy.ExecuteCommand('Project.OverrideMaterialProperty', 'supportBaseType', 'rect')"
+                        "example":"`Hy.ExecuteCommand('Project.OverrideMaterialProperty', 'supportBaseType', 'rect')`"
                     }
                 }
             },
@@ -198,7 +253,7 @@
             },
             "Box":{
                 "type":"class",
-                "description":"Hy.Box represents a 3-dimensional box with integer coordinates. It's mostly used for data ranges and bounding boxes in voxel fields. The box is defined in such a way that it does not include the maximum coordinates, or in other words, in a box with minimum coordinates of [0, 0, 0] and maximum coordinates of [3, 3, 3], the valid positions are [0, 0, 0] to [2, 2, 2]. Constructs a box with the given coordinates (all of which are optional, and default to 0).",
+                "description":"**(Support Class)** Hy.Box represents a 3-dimensional box with integer coordinates. It's mostly used for data ranges and bounding boxes in voxel fields. The box is defined in such a way that it does not include the maximum coordinates, or in other words, in a box with minimum coordinates of [0, 0, 0] and maximum coordinates of [3, 3, 3], the valid positions are [0, 0, 0] to [2, 2, 2]. Constructs a box with the given coordinates (all of which are optional, and default to 0).",
                 "args":"(iMinX = 0, iMinY = 0, iMinZ = 0, iMaxX = 0, iMaxY = 0, iMaxZ = 0)",
                 "childs":{
                     "bIsEmpty":{
@@ -245,7 +300,7 @@
             },
             "Rect":{
                 "type":"class",
-                "description":"Hy.Rect is a 2-dimensional rectangle with integer coordinates. It's used for data ranges in voxel field slices. The rectangle is defined in such a way that it does not include the maximum coordinates, or in other words, in a rectangle with minimum coordinates of [0, 0] and maximum coordinates of [3, 3], the valid positions are [0, 0] to [2, 2]. Constructs a rectangle with the given coordinates (all of which are optional, and default to 0).",
+                "description":"**(Support Class)** Hy.Rect is a 2-dimensional rectangle with integer coordinates. It's used for data ranges in voxel field slices. The rectangle is defined in such a way that it does not include the maximum coordinates, or in other words, in a rectangle with minimum coordinates of [0, 0] and maximum coordinates of [3, 3], the valid positions are [0, 0] to [2, 2]. Constructs a rectangle with the given coordinates (all of which are optional, and default to 0).",
                 "args":"(iMinX = 0, iMinY = 0, iMaxX = 0, iMaxY = 0)",
                 "childs":{
                     "bIsEmpty":{
@@ -280,7 +335,7 @@
             },
             "VoxelSize":{
                 "type":"class",
-                "description":"Hy.VoxelSize represents a particular voxel size, and provides function for coordinate transformations between voxels and project units (i.e. millimeters) with the proper offset. Constructs a Hy.VoxelSize object with the number of voxels per project unit (i.e. millimeter). The number of voxels per unit has to be a whole, positive number.",
+                "description":"**(Support Class)** Hy.VoxelSize represents a particular voxel size, and provides function for coordinate transformations between voxels and project units (i.e. millimeters) with the proper offset. Constructs a Hy.VoxelSize object with the number of voxels per project unit (i.e. millimeter). The number of voxels per unit has to be a whole, positive number.",
                 "args":"(nVoxelsPerUnit)",
                 "childs":{
                     "dDiagonal":{
@@ -311,7 +366,7 @@
             },
             "SliceDisplay":{
                 "type":"class",
-                "description":"This class provides access to a secondary full-screen window, which can be placed on any monitor, and which can re-sample, filter, and display density slices as black & white images. Since the slice display is a singleton, the constructor always returns the same object. The secondary window will be placed on screen number iScreen.",
+                "description":"**(DLP/SLA Prototype Specific)** This class provides access to a secondary full-screen window, which can be placed on any monitor, and which can re-sample, filter, and display density slices as black & white images. Since the slice display is a singleton, the constructor always returns the same object. The secondary window will be placed on screen number iScreen.",
                 "args":"(iScreen)",
                 "childs":{
                     "bPrepareSlice":{
@@ -322,8 +377,8 @@
                     },
                     "bSaveSlice":{
                         "type":"function",
-                        "description":"Saves the prepared slice (not the one being displayed!). So the usage is as follows:\nPrepareSlice(…)\nbSaveSlice(…)\nDisplaySlice(…)\nThe optional format parameter can be used to specify the image format. Supported formats are “BMP”, “JPG” and “PNG”, with “PNG” being the default. The function returns true on success, false on failure.",
-                        "args":"(filename [, format])",
+                        "description":"Saves the prepared slice (not the one being displayed!). So the usage is as follows:\n\n    PrepareSlice(...)\n    bSaveSlice(...)\n    DisplaySlice(...)\n\nThe optional format parameter can be used to specify the image format. Supported formats are BMP, JPG and PNG, with PNG being the default. The function returns true on success, false on failure.",
+                        "args":"(filename, [format])",
                         "returns":"(bSuccess)"
                     },
                     "bLoadSlice":{
@@ -345,20 +400,74 @@
                         "returns":"()"
                     }
                 }
-            },
-            "ExecuteCommand":{
-            	"type":"function",
-                "description":"Executes any XML command from Lua. The first argument is the command name, the upcoming arguments will be passed to the command being executed.",
-                "args":"(strCommand, [strArguments])",
-                "returns":"()"
             }
         }
     },
     "RS232":{
         "type":"class",
-        "description":"If an argument is provided, this constructor creates the object, and immediately tries to open the specified port with default settings. If no argument is provided, or if the argument is an empty string, the object is constructed without opening a port.",
+        "description":"**(Support Class)** If an argument is provided, this constructor creates the object, and immediately tries to open the specified port with default settings. If no argument is provided, or if the argument is an empty string, the object is constructed without opening a port.",
         "args":"(strPortName='')",
         "childs":{
+            "DATABITS_5":{
+                "type":"constant",
+                "value":"5"
+            },
+            "DATABITS_6":{
+                "type":"constant",
+                "value":"6"
+            },
+            "DATABITS_7":{
+                "type":"constant",
+                "value":"7"
+            },
+            "DATABITS_8":{
+                "type":"constant",
+                "value":"8"
+            },
+            "PARITY_NONE":{
+                "type":"constant",
+                "value":"0"
+            },
+            "PARITY_ODD":{
+                "type":"constant",
+                "value":"1"
+            },
+            "PARITY_EVEN":{
+                "type":"constant",
+                "value":"2"
+            },
+            "PARITY_MARK":{
+                "type":"constant",
+                "value":"3"
+            },
+            "PARITY_SPACE":{
+                "type":"constant",
+                "value":"4"
+            },
+            "STOPBITS_1":{
+                "type":"constant",
+                "value":"1"
+            },
+            "STOPBITS_2":{
+                "type":"constant",
+                "value":"2"
+            },
+            "STOPBITS_1_5":{
+                "type":"constant",
+                "value":"3"
+            },
+            "FLOWCONTROL_NONE":{
+                "type":"constant",
+                "value":"0"
+            },
+            "FLOWCONTROL_SOFTWARE":{
+                "type":"constant",
+                "value":"1"
+            },
+            "FLOWCONTROL_HARDWARE":{
+                "type":"constant",
+                "value":"2"
+            },
             "bCD":{
                 "type":"value",
                 "description":"(Read Only) The current status of the CD line."
