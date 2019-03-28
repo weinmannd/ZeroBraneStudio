@@ -101,10 +101,12 @@
                     },
                     "oMaterial":{
                         "type":"value",
+                        "valuetype":"Hy.Material",
                         "description":"(Read Only) Contains an instance of the Hy.Material class, providing access to the current material."
                     },
                     "oPrinter":{
                         "type":"value",
+                        "valuetype":"Hy.Printer",
                         "description":"(Read Only) Contains an instance of the Hy.Printer class, providing access to the printer profile associated with the project."
                     },
                     "oProduceResult":{
@@ -398,6 +400,12 @@
                         "description":"Waits until the slice display finishes displaying the current slice, and the screen goes blank. After this call, it is guaranteed that DisplaySlice() will not block.",
                         "args":"()",
                         "returns":"()"
+                    },
+                    "QA-Test":{
+                        "type":"Test-Function",
+                        "description":"This is a test - Ignore",
+                        "args":"(nMilliseconds)",
+                        "returns":"(true)"
                     }
                 }
             }
